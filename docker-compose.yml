@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ghcr.io/pizzadecent/backend:latest
+    container_name: backend
+    restart: always
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  frontend:
+    image: ghcr.io/pizzadecent/indrive-client:latest
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
